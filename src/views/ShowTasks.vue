@@ -1,21 +1,14 @@
 <template>
   <v-row style="display: flex; justify-content: space-between">
-    <v-btn style="background: none;" elevation="0" @click="changeFilter">
+    <v-btn @click="changeFilter">
       <v-icon icon="fa:fas fa-filter"></v-icon>
     </v-btn>
-    <router-link
-      class="add_button"
-      to="/addTask"
-    >
+    <router-link class="add_button" to="/addTask">
       <v-icon icon="fa:fas fa-plus"></v-icon>
     </router-link>
   </v-row>
   <v-row v-if="isFilter">
-    <v-card
-      position="absolute"
-      style="z-index: 1"
-      width="100%"
-    >
+    <v-card position="absolute" style="z-index: 1" width="100%">
       <p>Фильтрация задач</p>
       <v-card-text>
         <v-text-field v-if="selectedDateFilter !== 'Без даты'" type="date" v-model="selectedDate" class="input_date"/>
@@ -40,7 +33,7 @@
           label="Тип задачи"
           class="mb-4 input_filter"
         />
-        <v-btn style="text-transform: capitalize" color="blue-grey-darken-2" @click="ClearFilter">
+        <v-btn class="text_transform" color="blue-grey-darken-2" @click="ClearFilter">
           Отменить
         </v-btn>
       </v-card-text>
@@ -55,7 +48,7 @@
       @dragover.prevent
       @dragenter.prevent
     >
-      <div style="width: 100%; display: flex; justify-content: space-around; align-items: flex-start">
+      <div class="columns">
         <v-text-field
           v-model="category.title"
           :disabled="!category.isEditColumn"
@@ -259,5 +252,16 @@ export default {
 
 .input_filter {
   width: 50%;
+}
+
+.text_transform {
+  text-transform: capitalize;
+}
+
+.columns {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
 }
 </style>

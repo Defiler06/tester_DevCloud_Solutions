@@ -1,5 +1,4 @@
 import {dateFromString} from "@/helpers/dateFromString";
-
 export const formattedDate = (date) => {
   const formattedDate = dateFromString(date);
 

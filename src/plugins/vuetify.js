@@ -13,9 +13,6 @@ import 'vuetify/styles';
 import {createVuetify} from 'vuetify';
 import {aliases, fa} from 'vuetify/iconsets/fa';
 import {mdi} from 'vuetify/iconsets/mdi';
-import {VDatePicker} from 'vuetify/labs/VDatePicker'
-import DateFnsAdapter from '@date-io/date-fns'
-import russ from 'date-fns/locale/ru/index'
 
 export default createVuetify({
   theme: {
@@ -34,15 +31,6 @@ export default createVuetify({
     sets: {
       fa,
       mdi
-    },
-  },
-  components: {
-    VDatePicker
-  },
-  date: {
-    adapter: DateFnsAdapter,
-    locale: {
-      en: russ,
     },
   },
 })
