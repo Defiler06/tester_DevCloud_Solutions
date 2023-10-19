@@ -29,7 +29,7 @@ export default {
       dateStart: new Date(),
       amountTime: '',
       isDone: false,
-      categoryId: 1,
+      columnId: 1,
     },
     isFormValid: true
   }),

@@ -102,6 +102,8 @@ export default {
       this.submitHandlerProps();
     },
     formatDateInput() {
+      this.formData.dateEnd = this.formData.dateEnd.replace(/\D/g, '');
+
       if (this.formData.dateEnd.length > 10) {
         this.formData.dateEnd = this.formData.dateEnd.substring(0, 10);
       }
