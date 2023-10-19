@@ -110,7 +110,6 @@ const store = createStore({
     changeTasks(state, tasks) {
       state.tasks = tasks;
     }
-
   }
 })
 

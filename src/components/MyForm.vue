@@ -1,50 +1,30 @@
 <template>
   <v-form @submit.prevent="submitHandler" v-model="isValidForm">
     <v-row>
-      <v-col
-        cols="12"
-        sm="6"
-        md=""
-      >
+      <v-col cols="12" sm="6" md="4">
         {{ titleForm }}
       </v-col>
     </v-row>
     <v-row>
-      <v-col
-        cols="12"
-        sm="6"
-        md="6"
-      >
-        <v-select
+      <v-col cols="12" sm="6" md="6">
+        <my-select
           v-model="formData.type"
-          :items="getTypesTasks"
-          :rules="[v => !!v || 'Укажите тип задачи']"
+          :select-items="getTypesTasks"
           label="Тип задачи*"
-          required
-          class="mb-4"
+          :rules="[v => !!v || 'Укажите тип задачи']"
         />
       </v-col>
-      <v-col
-        cols="12"
-        sm="6"
-        md="6"
-      >
-        <v-select
+      <v-col cols="12" sm="6" md="6">
+        <my-select
           v-model="formData.department"
-          :items="getDepartments"
-          :rules="[v => !!v || 'Укажите отвественный отдел']"
+          :select-items="getDepartments"
           label="Отвественный отдел*"
-          required
-          class="mb-4"
+          :rules="[v => !!v || 'Укажите отвественный отдел']"
         />
       </v-col>
     </v-row>
     <v-row>
-      <v-col
-        cols="12"
-        sm="6"
-        md="12"
-      >
+      <v-col cols="12" sm="6" md="12">
         <v-textarea
           label="Описание задачи*"
           :rules="[v => !!v || 'Заполните описание задачи']"
@@ -54,24 +34,19 @@
         />
       </v-col>
     </v-row>
-    <v-text-field
+    <my-text-field
       v-model="formData.executor"
       label="Исполнитель"
-      class="mb-4"
     />
-    <v-text-field
+    <my-text-field
       v-model="formData.amountTime"
       :rules="[v => !!v || 'Укажите кол-во времени' , v => v > 0 || 'Отрицательное значение']"
       label="Кол-во времени (в часах)*"
-      required
-      class="mb-4"
     />
-    <v-text-field
+    <my-text-field
       v-model="formData.dateEnd"
       label="Дата окончания DD/MM/YYYY"
-      :counter="10"
-      @input="formatDateInput"
-      class="mb-4"
+      @onInputHandler="formatDateInput"
     />
     <v-btn
       type="submit"
@@ -84,9 +59,12 @@
 
 <script>
 import {mapGetters} from "vuex";
+import MySelect from "@/components/UI/MySelect.vue";
+import MyTextField from "@/components/UI/MyTextField.vue";
 
 export default {
   name: 'my-form',
+  components: {MyTextField, MySelect},
   props: ['formDataProps', 'validForm', 'submitHandlerProps', 'text', 'titleForm'],
   data() {
     return {

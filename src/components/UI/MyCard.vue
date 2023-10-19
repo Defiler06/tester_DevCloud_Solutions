@@ -7,21 +7,12 @@
   >
     <v-card-text class="d-flex flex-column align-start">
       <v-row>
-        <v-col
-          cols="12"
-          sm="6"
-          md="6"
-          v-if="!cardData.isDone"
-        >
+        <v-col cols="12" sm="6" md="6" v-if="!cardData.isDone">
           <v-btn style="background: none" @click="changeStatus(cardData.id)">
             <v-icon icon="fa:fas fa-check" color="success"></v-icon>
           </v-btn>
         </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-          md="6"
-        >
+        <v-col cols="12" sm="6" md="6">
           <v-btn @click="clickHandler(cardData.id)">
             ...
           </v-btn>
@@ -35,8 +26,7 @@
         <v-text-field v-model="cardData.executor"/>
         <v-spacer></v-spacer>
         <v-card-text v-if="cardData.dateEnd"
-                     class="rounded-lg bg-deep-orange-accent-4 d-flex align-center justify-center"
-        >
+                     class="rounded-lg bg-deep-orange-accent-4 d-flex align-center justify-center">
           {{ formattedDate(cardData.dateEnd) }}
         </v-card-text>
       </div>
@@ -49,6 +39,7 @@ import {formattedDate} from "@/helpers/formatedDate";
 
 export default {
   name: 'my-card',
+  props: ['taskData'],
   methods: {
     formattedDate,
     clickHandler(itemId) {
@@ -58,7 +49,6 @@ export default {
       this.$emit('changeStatus', itemId);
     }
   },
-  props: ['taskData'],
   data() {
     return {
       cardData: this.taskData

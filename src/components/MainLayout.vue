@@ -5,7 +5,6 @@
         <router-link to="/" class="link_nav">Task Manager</router-link>
       </v-toolbar-title>
     </v-app-bar>
-
     <v-main>
       <v-container fluid>
         <router-view/>

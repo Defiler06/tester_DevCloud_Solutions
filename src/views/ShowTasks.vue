@@ -19,24 +19,24 @@
       <p>Фильтрация задач</p>
       <v-card-text>
         <v-text-field v-if="selectedDateFilter !== 'Без даты'" type="date" v-model="selectedDate" class="input_date"/>
-        <v-select
+        <my-select
           v-if="selectedDate"
           v-model="selectedDateFilter"
-          :items="optionsDateFilter"
+          :select-items="optionsDateFilter"
           label="Фильтрация для даты"
           class="mb-4 input_filter"
         />
-        <v-select
+        <my-select
           v-model="selectedExecutor"
-          :items="forFilterExecutor"
+          :select-items="forFilterExecutor"
           item-title="title"
           item-value="value"
           label="Исполнитель"
           class="mb-4 input_filter"
         />
-        <v-select
+        <my-select
           v-model="selectedTaskType"
-          :items="getTypesTasks"
+          :select-items="getTypesTasks"
           label="Тип задачи"
           class="mb-4 input_filter"
         />
@@ -58,7 +58,7 @@
       <div style="width: 100%; display: flex; justify-content: space-around; align-items: flex-start">
         <v-text-field
           v-model="category.title"
-          :disabled="!  category.isEditColumn"
+          :disabled="!category.isEditColumn"
         />
         <v-btn @click="category.isEditColumn = !category.isEditColumn">
           <v-icon icon="fa:fas fa-edit"></v-icon>
@@ -100,6 +100,7 @@ import {mapGetters, mapMutations} from "vuex";
 import myCard from "@/components/UI/MyCard.vue";
 import MyForm from "@/components/MyForm.vue";
 import {dateFromString} from "@/helpers/dateFromString";
+import MySelect from "@/components/UI/MySelect.vue";
 
 export default {
   name: 'show-task',
@@ -131,12 +132,6 @@ export default {
       selectedDateFilter: '',
       selectedDate: '',
       isFormValid: true,
-      items: [
-        {text: 'Значение 1', value: 'value1'},
-        {text: 'Значение 2', value: 'value2'},
-        {text: 'Значение 3', value: 'value3'},
-        {text: 'Статический элемент', value: 'static'},
-      ],
     }
   },
   methods: {
@@ -183,7 +178,7 @@ export default {
     forFilterExecutor() {
       return [...Array.from(new Set(this.getTasks.map(task => {
         return {title: task.executor, value: task.executor}
-      }))).filter(executor => executor !== ''), {title: 'Без исполнителя', value: ''}]
+      }))).filter(executor => executor.title !== ''), {title: 'Без исполнителя', value: ''}]
     },
     filteredByExecutor() {
       if (this.selectedExecutor === null) {
@@ -220,6 +215,7 @@ export default {
     },
   },
   components: {
+    MySelect,
     MyForm,
     myCard
   },
