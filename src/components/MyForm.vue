@@ -56,21 +56,19 @@
     </v-row>
     <v-text-field
       v-model="formData.executor"
-      label="Исполнитель*"
-      required
+      label="Исполнитель"
       class="mb-4"
     />
     <v-text-field
       v-model="formData.amountTime"
-      :rules="[v => !!v || 'Укажите кол-во времени']"
-      label="Кол-во времени*"
+      :rules="[v => !!v || 'Укажите кол-во времени' , v => v > 0 || 'Отрицательное значение']"
+      label="Кол-во времени (в часах)*"
       required
       class="mb-4"
     />
     <v-text-field
       v-model="formData.dateEnd"
       label="Дата окончания DD/MM/YYYY"
-      required
       :counter="10"
       @input="formatDateInput"
       class="mb-4"
@@ -102,7 +100,7 @@ export default {
       this.submitHandlerProps();
     },
     formatDateInput() {
-      this.formData.dateEnd = this.formData.dateEnd.replace(/\D/g, '');
+      this.formData.dateEnd = this.formData.dateEnd.replace(/[^0-9/]/g, '');
 
       if (this.formData.dateEnd.length > 10) {
         this.formData.dateEnd = this.formData.dateEnd.substring(0, 10);

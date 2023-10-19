@@ -1,9 +1,9 @@
 <template>
   <v-card
     width="500"
-    class="py-10 pa-10 d-flex flex-column justify-space-around mt-10"
+    class="py-2 pa-2 d-flex flex-column justify-space-around mt-10"
     :class="cardColor"
-    height="450"
+    min-height="300"
   >
     <v-card-text class="d-flex flex-column align-start">
       <v-row>

@@ -33,7 +33,9 @@ export default {
     },
     isFormValid: true
   }),
-  computed: mapGetters(['getTypesTasks', 'getDepartments', 'getTasks']),
+  computed: {
+    ...mapGetters(['getTypesTasks', 'getDepartments', 'getTasks'])
+  },
   methods: {
     ...mapMutations(["addTask"]),
     submitHandler() {

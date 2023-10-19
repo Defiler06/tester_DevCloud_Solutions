@@ -3,6 +3,8 @@ import {dateFromString} from "@/helpers/dateFromString";
 export const formattedDate = (date) => {
   const formattedDate = dateFromString(date);
 
+  if(isNaN(formattedDate)) return 'Неккоректная дата';
+
   const day = formattedDate.getDate();
   const month = formattedDate.getMonth() + 1;
   const year = formattedDate.getFullYear();

@@ -28,7 +28,9 @@
         />
         <v-select
           v-model="selectedExecutor"
-          :items="Array.from(new Set(getTasks.map(task => task.executor)))"
+          :items="forFilterExecutor"
+          item-title="title"
+          item-value="value"
           label="Исполнитель"
           class="mb-4 input_filter"
         />
@@ -56,9 +58,8 @@
       <div style="width: 100%; display: flex; justify-content: space-around; align-items: flex-start">
         <v-text-field
           v-model="category.title"
-          v-if="category.isEditColumn"
+          :disabled="!  category.isEditColumn"
         />
-        <p v-else>{{ category.title }}</p>
         <v-btn @click="category.isEditColumn = !category.isEditColumn">
           <v-icon icon="fa:fas fa-edit"></v-icon>
         </v-btn>
@@ -125,11 +126,17 @@ export default {
         "Без даты"
       ],
       isFilter: false,
-      selectedExecutor: '',
+      selectedExecutor: null,
       selectedTaskType: '',
       selectedDateFilter: '',
       selectedDate: '',
-      isFormValid: true
+      isFormValid: true,
+      items: [
+        {text: 'Значение 1', value: 'value1'},
+        {text: 'Значение 2', value: 'value2'},
+        {text: 'Значение 3', value: 'value3'},
+        {text: 'Статический элемент', value: 'static'},
+      ],
     }
   },
   methods: {
@@ -154,7 +161,7 @@ export default {
       this.selectedDate = '';
       this.selectedDateFilter = '';
       this.selectedTaskType = '';
-      this.selectedExecutor = '';
+      this.selectedExecutor = null;
     },
     onDragStart(e, item) {
       e.dataTransfer.dropEffect = 'move';
@@ -173,10 +180,16 @@ export default {
   },
   computed: {
     ...mapGetters(['getTasks', "getTaskById", "getCategories", "getTypesTasks"]),
+    forFilterExecutor() {
+      return [...Array.from(new Set(this.getTasks.map(task => {
+        return {title: task.executor, value: task.executor}
+      }))).filter(executor => executor !== ''), {title: 'Без исполнителя', value: ''}]
+    },
     filteredByExecutor() {
-      if (!this.selectedExecutor) {
+      if (this.selectedExecutor === null) {
         return this.forFilterTask;
       }
+
       return this.forFilterTask.filter(task => task.executor === this.selectedExecutor);
     },
     filteredByTaskType() {
@@ -229,10 +242,10 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
-  border: #455A64 4px solid;
-  border-radius: 25px;
-  padding: 20px;
-  margin: 20px;
+  border: #455A64 2px solid;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 15px;
   width: 30%;
   min-height: 100vh;
 }
